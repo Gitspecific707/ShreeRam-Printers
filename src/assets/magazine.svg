@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260" viewBox="0 0 400 260" role="img" aria-label="Magazine">
+  <rect width="100%" height="100%" rx="12" fill="#fff" stroke="#e6e6e6" />
+  <rect x="24" y="24" width="352" height="180" rx="10" fill="#fff" stroke="#f0f5ff" />
+  <rect x="36" y="34" width="120" height="120" rx="6" fill="#1e3c72" />
+  <rect x="168" y="34" width="188" height="24" rx="6" fill="#2a5298" />
+  <g transform="translate(168,72)" fill="#0f172a">
+    <rect width="160" height="12" rx="6" />
+    <rect y="24" width="140" height="12" rx="6" />
+    <rect y="48" width="180" height="12" rx="6" />
+  </g>
+  <text x="32" y="230" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#1e3c72">Magazine</text>
+</svg>
