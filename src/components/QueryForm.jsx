@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
+import { API_URL } from '../config';
 
 const STORAGE_KEY = 'sr_queries';
 const TEN_DAYS_MS = 10 * 24 * 60 * 60 * 1000;
@@ -74,6 +75,20 @@ export default function QueryForm({ onSubmitted, showLast = true }) {
     setQuery('');
     // call optional callback (used by modal to close after submit)
     if (typeof onSubmitted === 'function') onSubmitted(entry);
+
+    // If a central API is configured, POST the entry there as a best-effort send.
+    // The server should accept JSON payloads and respond with 200/201.
+    if (API_URL) {
+      try {
+        fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry)
+        }).catch((err) => console.warn('Failed to POST query to API:', err));
+      } catch (err) {
+        console.warn('Failed to POST query to API:', err);
+      }
+    }
   }
 
   return (

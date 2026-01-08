@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { API_URL, PUBLIC_READ } from '../config';
 
 const STORAGE_KEY = 'sr_queries';
 const TEN_DAYS_MS = 10 * 24 * 60 * 60 * 1000;
 
-function loadAndPurge() {
+function loadAndPurgeLocal() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
@@ -22,13 +23,47 @@ function loadAndPurge() {
   }
 }
 
+async function fetchFromApi() {
+  if (!API_URL) return [];
+  try {
+    const res = await fetch(API_URL, { method: 'GET' });
+    if (!res.ok) throw new Error('Network response not ok');
+    const data = await res.json();
+    // Expecting array of entries
+    if (!Array.isArray(data)) return [];
+    return data;
+  } catch (e) {
+    console.warn('Failed to fetch queries from API', e);
+    return [];
+  }
+}
+
 export default function RecentQueriesDialog({ open, onClose }) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    if (open) {
-      setList(loadAndPurge());
+    if (!open) return;
+
+    let mounted = true;
+
+    async function load() {
+      // If PUBLIC_READ is enabled and API_URL is set, try to fetch from server
+      if (PUBLIC_READ && API_URL) {
+        const serverList = await fetchFromApi();
+        if (mounted && serverList.length > 0) {
+          setList(serverList.slice().reverse());
+          return;
+        }
+      }
+
+      // Fallback to local storage
+      const local = loadAndPurgeLocal();
+      if (mounted) setList(local.slice().reverse());
     }
+
+    load();
+
+    return () => { mounted = false; };
   }, [open]);
 
   return (
@@ -39,14 +74,14 @@ export default function RecentQueriesDialog({ open, onClose }) {
           <Typography>No recent queries found.</Typography>
         ) : (
           <List>
-            {list.slice().reverse().map((q) => (
-              <ListItem key={q.id} alignItems="flex-start">
+            {list.map((q) => (
+              <ListItem key={q.id || `${q.createdAt}-${Math.random()}`} alignItems="flex-start">
                 <ListItemText
-                  primary={`${q.name} — ${q.contact}`}
+                  primary={`${q.name || 'Anonymous'} — ${q.contact || ''}`}
                   secondary={<>
                     {q.address && <Typography component="span" display="block">{q.address}</Typography>}
                     <Typography component="span" display="block">{q.query}</Typography>
-                    <Typography component="span" variant="caption" display="block">{new Date(q.createdAt).toLocaleString()}</Typography>
+                    <Typography component="span" variant="caption" display="block">{q.createdAt ? new Date(q.createdAt).toLocaleString() : ''}</Typography>
                   </>}
                 />
               </ListItem>
