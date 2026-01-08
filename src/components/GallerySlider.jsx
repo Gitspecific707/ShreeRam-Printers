@@ -16,6 +16,8 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
   const [index, setIndex] = useState(0);
   const timerRef = useRef(null);
   const containerRef = useRef(null);
+  const touchStartX = useRef(null);
+  const touchDeltaX = useRef(0);
 
   useEffect(() => {
     if (!autoPlay) return;
@@ -57,12 +59,55 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
     }
   }
 
+  // Touch handlers for swipe on mobile
+  function handleTouchStart(e) {
+    if (e.touches && e.touches.length === 1) {
+      touchStartX.current = e.touches[0].clientX;
+      touchDeltaX.current = 0;
+      if (timerRef.current) clearInterval(timerRef.current);
+    }
+  }
+
+  function handleTouchMove(e) {
+    if (!touchStartX.current) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  }
+
+  function handleTouchEnd() {
+    const threshold = 50; // px
+    if (touchDeltaX.current > threshold) {
+      // swipe right -> previous
+      prev();
+    } else if (touchDeltaX.current < -threshold) {
+      // swipe left -> next
+      next();
+    }
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
+    // restart autoplay
+    if (autoPlay) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        setIndex((i) => (i + 1) % images.length);
+      }, interval);
+    }
+  }
+
   return (
     <Box
       ref={containerRef}
-      sx={{ position: 'relative', width: '90vw', mx: 'auto', boxSizing: 'border-box', my: 6 }}
+      sx={{
+        position: 'relative',
+        width: { xs: '95vw', sm: '90vw', md: '85vw', lg: '80vw' },
+        mx: 'auto',
+        boxSizing: 'border-box',
+        my: 6
+      }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <Box
         component="img"
@@ -70,7 +115,8 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
         alt={images[index].alt}
         sx={{
           width: '100%',
-          height: '80vh',
+          // Smaller height on mobile (xs). Desktop sizes unchanged.
+          height: { xs: '20vh', sm: '30vh', md: '70vh' },
           objectFit: 'cover',
           borderRadius: 2,
           boxShadow: 3,
@@ -82,7 +128,15 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
       <IconButton
         onClick={prev}
         aria-label="Previous"
-        sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'background.paper', '&:hover': { bgcolor: 'grey.100' } }}
+        sx={{
+          position: 'absolute',
+          left: 8,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          bgcolor: 'background.paper',
+          '&:hover': { bgcolor: 'grey.100' },
+          display: { xs: 'none', sm: 'flex' }
+        }}
       >
         <ArrowBackIosIcon />
       </IconButton>
@@ -91,7 +145,15 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
       <IconButton
         onClick={next}
         aria-label="Next"
-        sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'background.paper', '&:hover': { bgcolor: 'grey.100' } }}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          bgcolor: 'background.paper',
+          '&:hover': { bgcolor: 'grey.100' },
+          display: { xs: 'none', sm: 'flex' }
+        }}
       >
         <ArrowForwardIosIcon />
       </IconButton>
