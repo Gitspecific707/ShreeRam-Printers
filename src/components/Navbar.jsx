@@ -15,16 +15,16 @@ export default function Navbar() {
   return (
     <AppBar position="sticky">
       <Toolbar sx={{ minHeight: 64 }}>
-        <Box sx={{ width: 44, height: 44, mr: 2, borderRadius: '50%', overflow: 'hidden', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: { xs: 36, sm: 44 }, height: { xs: 36, sm: 44 }, mr: 2, borderRadius: '50%', overflow: 'hidden', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'background.paper' }}>
           <Box component="img" src={logonew} alt="ShreeRam Printers logo" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         </Box>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
           ShreeRam Printers
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Button variant="contained" color="success" aria-label="Send Query" onClick={() => setOpenQuery(true)} sx={{ textTransform: 'none', mr: 1 }}>
+        <Button variant="contained" color="success" aria-label="Send Query" onClick={() => setOpenQuery(true)} sx={{ textTransform: 'none', mr: 1, fontSize: { xs: '0.72rem', sm: '0.875rem' }, py: { xs: '6px', sm: '8px' } }}>
           Send Query
         </Button>
 

@@ -2,6 +2,7 @@
 import { CssBaseline } from '@mui/material';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import GallerySlider from './components/GallerySlider';
 import Services from './components/Services';
 import WhyUs from './components/WhyUs';
 import Contact from './components/Contact';
@@ -14,6 +15,7 @@ export default function App() {
       <CssBaseline />
       <Navbar />
       <Hero />
+  <GallerySlider />
       <Services />
       <WhyUs />
       <Contact />

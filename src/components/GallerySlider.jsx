@@ -60,7 +60,7 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
   return (
     <Box
       ref={containerRef}
-      sx={{ position: 'relative', maxWidth: 960, mx: 'auto', my: 6 }}
+      sx={{ position: 'relative', width: { xs: '95vw', sm: '90vw', md: '80vw' }, mx: 'auto', my: 6 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -70,7 +70,8 @@ export default function GallerySlider({ autoPlay = true, interval = 3500 }) {
         alt={images[index].alt}
         sx={{
           width: '100%',
-          height: 'auto',
+          height: { xs: '28vh', sm: '45vh', md: '80vh' },
+          objectFit: 'cover',
           borderRadius: 2,
           boxShadow: 3,
           display: 'block'
