@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <rect width="100%" height="100%" rx="8" fill="#fff" stroke="#e6e6e6" />
+  <rect x="14" y="14" width="64" height="52" rx="6" fill="#fef3c7" stroke="#f59e0b" />
+  <text x="46" y="46" font-family="Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">Sticker</text>
+  <path d="M86 54 q8 6 12 4" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

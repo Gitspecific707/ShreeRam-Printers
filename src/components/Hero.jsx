@@ -1,5 +1,9 @@
 
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Grid } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function Hero() {
   return (
@@ -26,6 +30,37 @@ export default function Hero() {
       >
         Order on WhatsApp
       </Button>
+
+      {/* Feature row with icons under the CTA */}
+      <Grid container spacing={2} sx={{ mt: 3, maxWidth: 840, mx: 'auto' }}>
+        <Grid item xs={6} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+            <CheckCircleIcon sx={{ color: 'white', bgcolor: 'success.main', borderRadius: '50%', p: 0.5, fontSize: { xs: 20, sm: 26 } }} />
+            <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: { xs: '0.8rem', sm: '0.95rem' } }}>10+ Years Experience</Typography>
+          </Box>
+        </Grid>
+
+        <Grid item xs={6} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+            <LocalShippingIcon sx={{ color: 'white', bgcolor: '#1976d2', borderRadius: '50%', p: 0.5, fontSize: { xs: 20, sm: 26 } }} />
+            <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: { xs: '0.8rem', sm: '0.95rem' } }}>Fast Delivery</Typography>
+          </Box>
+        </Grid>
+
+        <Grid item xs={6} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+            <AttachMoneyIcon sx={{ color: 'white', bgcolor: '#388e3c', borderRadius: '50%', p: 0.5, fontSize: { xs: 20, sm: 26 } }} />
+            <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: { xs: '0.8rem', sm: '0.95rem' } }}>Affordable Pricing</Typography>
+          </Box>
+        </Grid>
+
+        <Grid item xs={6} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+            <ThumbUpIcon sx={{ color: 'white', bgcolor: '#ff9800', borderRadius: '50%', p: 0.5, fontSize: { xs: 20, sm: 26 } }} />
+            <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: { xs: '0.8rem', sm: '0.95rem' } }}>Trusted by Customers</Typography>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }
