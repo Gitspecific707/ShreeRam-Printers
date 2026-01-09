@@ -1,6 +1,6 @@
 
-import { AppBar, Toolbar, Typography, Box, IconButton, Button, Snackbar, Alert } from '@mui/material';
-import shreeram from '../assets/shreeram.avif';
+import { AppBar, Toolbar, Typography, Box, Button, IconButton, Snackbar, Alert } from '@mui/material';
+import logonew from '../assets/logonew.png';
 import HistoryIcon from '@mui/icons-material/History';
 import { useState } from 'react';
 import QueryDialog from './QueryDialog';
@@ -14,26 +14,18 @@ export default function Navbar() {
 
   return (
     <AppBar position="sticky">
-      <Toolbar>
-        <Box
-          component="img"
-          src={shreeram}
-          alt="ShreeRam Printers"
-          sx={{ height: 40, mr: 2 }}
-        />
-        <Typography variant="h6" fontWeight="bold" sx={{ flexGrow: 1 }}>
+      <Toolbar sx={{ minHeight: 64 }}>
+        <Box sx={{ width: 44, height: 44, mr: 2, borderRadius: '50%', overflow: 'hidden', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'background.paper' }}>
+          <Box component="img" src={logonew} alt="ShreeRam Printers logo" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        </Box>
+        <Typography variant="h6" fontWeight="bold">
           ShreeRam Printers
         </Typography>
 
-        <Button
-          variant="contained"
-          color="warning"
-          aria-label="Get Help"
-          onClick={() => setOpenQuery(true)}
-          sx={{ textTransform: 'none', mr: 1 }}
-          size="small"
-        >
-          Get Help
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Button variant="contained" color="success" aria-label="Send Query" onClick={() => setOpenQuery(true)} sx={{ textTransform: 'none', mr: 1 }}>
+          Send Query
         </Button>
 
         <IconButton color="inherit" aria-label="Recent queries" onClick={() => setOpenRecent(true)} sx={{ ml: 0.5 }}>
@@ -44,9 +36,8 @@ export default function Navbar() {
           open={openQuery}
           onClose={() => setOpenQuery(false)}
           onSubmitted={(entry) => {
-            // close dialog and show success snackbar
             setOpenQuery(false);
-            setSuccessMessage('Your query submitted successfully — we will call you shortly.');
+            setSuccessMessage('Your query was submitted — it will be visible to users for 10 days.');
             setSuccessOpen(true);
           }}
         />

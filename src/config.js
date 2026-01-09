@@ -1,11 +1,6 @@
-// Optional configuration for central query storage.
-// If you want to enable central storage (Google Sheets / serverless endpoint),
-// set API_URL to your deployed endpoint URL (no trailing slash).
-// Example: export const API_URL = 'https://script.google.com/macros/s/AKfy.../exec'
+// Configuration for query backend. If you want submissions to be visible to everyone
+// across devices, deploy a simple endpoint (for example Google Apps Script / Sheets)
+// and paste the URL below. Leave blank to use localStorage only (local-only).
 
 export const API_URL = '';
-
-// If PUBLIC_READ is true, RecentQueriesDialog will attempt to fetch recent queries
-// from the API for everyone to see. Keep false if you only want the owner to view
-// queries via an admin dashboard.
 export const PUBLIC_READ = true;

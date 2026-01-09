@@ -29,7 +29,6 @@ async function fetchFromApi() {
     const res = await fetch(API_URL, { method: 'GET' });
     if (!res.ok) throw new Error('Network response not ok');
     const data = await res.json();
-    // Expecting array of entries
     if (!Array.isArray(data)) return [];
     return data;
   } catch (e) {
@@ -43,11 +42,9 @@ export default function RecentQueriesDialog({ open, onClose }) {
 
   useEffect(() => {
     if (!open) return;
-
     let mounted = true;
 
     async function load() {
-      // If PUBLIC_READ is enabled and API_URL is set, try to fetch from server
       if (PUBLIC_READ && API_URL) {
         const serverList = await fetchFromApi();
         if (mounted && serverList.length > 0) {
@@ -55,14 +52,11 @@ export default function RecentQueriesDialog({ open, onClose }) {
           return;
         }
       }
-
-      // Fallback to local storage
       const local = loadAndPurgeLocal();
       if (mounted) setList(local.slice().reverse());
     }
 
     load();
-
     return () => { mounted = false; };
   }, [open]);
 
