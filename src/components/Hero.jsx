@@ -18,6 +18,8 @@ export default function Hero() {
         ShreeRam Printers
       </Typography>
       <Typography variant="h6" sx={{ mt: 2, fontSize: { xs: '0.95rem', sm: '1.125rem' } }}>
+        Welcome to
+        <br />
         Professional Printing Services in Jaipur <br />
         प्रोफेशनल प्रिंटिंग सर्विसेज जयपुर में
       </Typography>
