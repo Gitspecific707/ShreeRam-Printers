@@ -65,7 +65,7 @@ export default function RecentQueriesDialog({ open, onClose }) {
       <DialogTitle>Recent Queries (last 10 days)</DialogTitle>
       <DialogContent>
         {list.length === 0 ? (
-          <Typography>No recent queries found.</Typography>
+          <Typography>No queries found.</Typography>
         ) : (
           <List>
             {list.map((q) => (
